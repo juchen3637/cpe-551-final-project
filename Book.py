@@ -23,7 +23,7 @@ class Book(Media):
   parameter 8: publisher
   type: string
   """
-  def __init__(self, id, title, avgRating, authors, isbn, isbn13, languageCode, numPages, numRatings, pubDate, publisher):
+  def __init__(self, id, title, authors, avgRating, isbn, isbn13, languageCode, numPages, numRatings, pubDate, publisher):
     super().__init__(id, title, avgRating)
     self.__authors = authors
     self.__isbn = isbn

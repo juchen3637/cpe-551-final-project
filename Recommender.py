@@ -24,46 +24,46 @@ class Recommender:
     """
     file = ""
     while not os.path.exists(file):
-      file = fd.askopenfilename(title="Book",initialdir=os.getcwd()) # Rename "Book" to title of GUI.
+      file = fd.askopenfilename(title="Select book file to load",initialdir=os.getcwd()) # Rename "Book" to title of GUI.
     with open(file, 'r') as lines:
       for line in lines:
-        if line!=lines[0]:
+        if line[0:4]!="book":
           line = line.strip()
-          info = list(line.split("\t"))
+          info = list(line.split(","))
           # Book value: id, title, avgRating, authors, isbn, isbn13, languageCode, numPages, numRatings, pubDate, publisher
-          self.__Books[info[0]] = Book.Book(info)
+          self.__Books[info[0]] = Book.Book(info[0], info[1], info[2], info[3], info[4], info[5], info[6], info[7], info[8], info[9], info[10])
           
   def loadShows(self):
     """Loads all of the data from a selected show file using an askopenfilename dialog.
     """
     file = ""
     while not os.path.exists(file):
-      file = fd.askopenfilename(title="Show",initialdir=os.getcwd()) # Rename "Show" to title of GUI.
+      file = fd.askopenfilename(title="Select show file to load",initialdir=os.getcwd()) # Rename "Show" to title of GUI.
     with open(file, 'r') as lines:
       for line in lines:
-        if line!=lines[0]:
+        if line[0:4]!="show":
           line = line.strip()
-          info = list(line.split("\t"))
+          info = list(line.split(","))
           # Show value: id, type, title, directors, actors, avgRating, countryCode, dateAdded, year, rating, duration, genres, description
-          self.__Shows[info[0]] = Show.Show(info)
+          self.__Shows[info[0]] = Show.Show(info[0], info[1], info[2], info[3], info[4], info[5], info[6], info[7], info[8], info[9], info[10], info[11], info[12])
           
   def loadAssociations(self):
     """Loads all of the data from a selected association file using an askopenfilename dialog.
     """
     file = ""
     while not os.path.exists(file):
-      file = fd.askopenfilename(title="Show",initialdir=os.getcwd()) # Rename "Show" to title of GUI.
+      file = fd.askopenfilename(title="Select associations file to load",initialdir=os.getcwd()) # Rename "Show" to title of GUI.
     with open(file, 'r') as lines:
       for line in lines:
         line = line.strip()
-        info = list(line.split("\t")) # Size of 2
+        info = list(line.split(",")) # Size of 2
         if info[0] in self.__Associations.keys(): # Uses Show ID as Outer Dictionary Key
           if info[1] in self.__Associations[info[0]].keys():
             # OD: {Show ID, dict}, dict = OD[Show ID]
             # ID: {Book ID, val}, val = ID[Book ID] = OD[Show ID][Book ID]
-            self.__Dicts[info[0]][info[1]] += 1
+            self.__Associations[info[0]][info[1]] += 1
           else:
-            self.__Dicts[info[0]][info[1]] = 1
+            self.__Associations[info[0]][info[1]] = 1
         else:
           new_dict = dict()
           new_dict[info[1]] = 1 # Uses Book ID as Inner Dictionary Key
@@ -73,9 +73,9 @@ class Recommender:
           if info[0] in self.__Associations[info[1]].keys():
             # OD: {Book ID, dict}, dict = OD[Book ID]
             # ID: {Show ID, val}, val = ID[Show ID] = OD[Book ID][Show ID]
-            self.__Dicts[info[1]][info[0]] += 1
+            self.__Associations[info[1]][info[0]] += 1
           else:
-            self.__Dicts[info[1]][info[0]] = 1
+            self.__Associations[info[1]][info[0]] = 1
         else:
           new_dict = dict()
           new_dict[info[0]] = 1 # Uses Show ID as Inner Dictionary Key
@@ -97,9 +97,10 @@ class Recommender:
           longestName = len(showInfo.getTitle())
     output = str()
     count = 0
+    longestName += 5
     for i in storage:
       if count%2==0:
-        output += f"{"\n" + i :>{longestName+5}}" # Adds strings from storage using proper indenting
+        output += f"{"\n" + i :>{longestName}}" # Adds strings from storage using proper indenting
       else:
         output += f"{i}" # Adds strings from storage using proper spacing
       count += 1
@@ -121,9 +122,10 @@ class Recommender:
           longestName = len(showInfo.getTitle())
     output = str()
     count = 0
+    longestName += 5
     for i in storage:
       if count%2==0:
-        output += f"{"\n" + i :>{longestName+5}}" # Adds strings from storage using proper indenting
+        output += f"{"\n" + i :>{longestName}}" # Adds strings from storage using proper indenting
       else:
         output += f"{i}" # Adds strings from storage using proper spacing
       count += 1
@@ -144,9 +146,10 @@ class Recommender:
         longestName = len(bookInfo.getTitle())
     output = str()
     count = 0
+    longestName += 5
     for i in storage:
       if count%2==0:
-        output += f"{"\n" + i :>{longestName+5}}" # Adds strings from storage using proper indenting
+        output += f"{"\n" + i :>{longestName}}" # Adds strings from storage using proper indenting
       else:
         output += f"{i}" # Adds strings from storage using proper spacing
       count += 1
@@ -326,10 +329,10 @@ class Recommender:
     publisherCounts = dict()
     for bookInfo in self.__Books.values():
       # Getting Average Page Numbers
-      avgSeasonsNum += int(bookInfo.getNumPages()) # Remove last 7 characters which is either "seasons" or " season". The integer removes the leftover space in seasons.
+      avgPageCounts += int(bookInfo.getNumPages()) # Remove last 7 characters which is either "seasons" or " season". The integer removes the leftover space in seasons.
       bookCount += 1
       # Getting the Author(s) who wrote the most books
-      authors_str = bookInfo.getActors()
+      authors_str = bookInfo.getAuthors()
       authors_str = authors_str.strip()
       authors_list = list(authors_str.split("\\"))
       for author in authors_list:
@@ -338,7 +341,7 @@ class Recommender:
         else:
           authorCounts[author] = 1
       # Getting the Publisher who published the most books
-      publishers_str = bookInfo.getGenres()
+      publishers_str = bookInfo.getPublisher()
       publishers_str = publishers_str.strip()
       publishers_list = list(publishers_str.split("\\"))
       for publisher in publishers_list:
@@ -444,11 +447,15 @@ class Recommender:
       mediaList.append(show.getGenres())
     output = str()
     count = 0
+    columnLengths[0] += 5
+    columnLengths[1] += 5
+    columnLengths[2] += 5
+    columnLengths[3] += 5
     for i in mediaList:
       if count%4==0:
-        output += f"{"\n" + i :>{columnLengths[0]+5}}" # Adds strings from the mediaList using proper indenting
+        output += f"{"\n" + i :>{columnLengths[0]}}" # Adds strings from the mediaList using proper indenting
       else:
-        output += f"{i :>{columnLengths[i%4]+5}}" # Adds strings from storage using proper spacing
+        output += f"{i :>{columnLengths[count%4]}}" # Adds strings from storage using proper spacing
       count += 1
     return output
     
@@ -507,11 +514,14 @@ class Recommender:
       bookList.append(book.getPublisher())
     output = str()
     count = 0
+    columnLengths[0] += 5
+    columnLengths[1] += 5
+    columnLengths[2] += 5
     for i in bookList:
       if count%3==0:
-        output += f"{"\n" + i :>{columnLengths[0]+5}}" # Adds strings from the bookList using proper indenting
+        output += f"{"\n" + i :>{columnLengths[0]}}" # Adds strings from the bookList using proper indenting
       else:
-        output += f"{i :>{columnLengths[i%3]+5}}" # Adds strings from storage using proper spacing
+        output += f"{i :>{columnLengths[count%3]}}" # Adds strings from storage using proper spacing
       count += 1
     return output
     

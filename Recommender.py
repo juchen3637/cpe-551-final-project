@@ -33,7 +33,7 @@ class Recommender:
           # Book value: id, title, avgRating, authors, isbn, isbn13, languageCode, numPages, numRatings, pubDate, publisher
           self.__Books[info[0]] = Book.Book(info)
           
-  def loadShow(self):
+  def loadShows(self):
     """Loads all of the data from a selected show file using an askopenfilename dialog.
     """
     file = ""

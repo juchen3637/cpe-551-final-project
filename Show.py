@@ -5,7 +5,7 @@
 from Media import Media
 
 class Show(Media):
-  def __init__(self, id, title, avgRating, type, directors, actors, countryCode, dateAdded, year, rating, duration, genres, description):
+  def __init__(self, id, type, title, directors, actors, avgRating, countryCode, dateAdded, year, rating, duration, genres, description):
     """
     parameter 1: type
     type: string

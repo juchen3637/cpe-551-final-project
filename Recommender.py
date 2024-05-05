@@ -183,28 +183,31 @@ class Recommender:
         directors_str = directors_str.strip()
         directors_list = list(directors_str.split("\\"))
         for director in directors_list:
-          if director in directorCounts.keys():
-            directorCounts[director] += 1
-          else:
-            directorCounts[director] = 1
+          if director!="":
+            if director in directorCounts.keys():
+              directorCounts[director] += 1
+            else:
+              directorCounts[director] = 1
         # Getting Top Movie Actor
         actors_str = movieInfo.getActors()
         actors_str = actors_str.strip()
         actors_list = list(actors_str.split("\\"))
         for actor in actors_list:
-          if actor in actorCounts.keys():
-            actorCounts[actor] += 1
-          else:
-            actorCounts[actor] = 1
+          if actor!="":
+            if actor in actorCounts.keys():
+              actorCounts[actor] += 1
+            else:
+              actorCounts[actor] = 1
         # Getting Most Frequent Movie Genre
         genres_str = movieInfo.getGenres()
         genres_str = genres_str.strip()
         genres_list = list(genres_str.split("\\"))
         for genre in genres_list:
-          if genre in genreCounts.keys():
-            genreCounts[genre] += 1
-          else:
-            genreCounts[genre] = 1
+          if genre!="":
+            if genre in genreCounts.keys():
+              genreCounts[genre] += 1
+            else:
+              genreCounts[genre] = 1
     # Getting Rating Percentages
     totalRating = 0
     for count in ratingPercents.values():
@@ -218,28 +221,34 @@ class Recommender:
     topDirector = ""
     for director in directorCounts.keys():
       if directorCounts[director] == maxMoviesDirected:
-        if topDirector=="": # In case there are multiple top directors
-          topDirector += director
-        else:
-          topDirector += "\\" + director
+        # if topDirector=="": # In case there are multiple top directors
+        #   topDirector += director
+        # else:
+        #   topDirector += "\\" + director
+        topDirector = director
+        break
     # Getting Actor who acted in the most movies
     maxMoviesActedIn = max(actorCounts.values())
     topActor = ""
     for actor in actorCounts.keys():
       if actorCounts[actor] == maxMoviesActedIn:
-        if topActor=="": # In case there are multiple top actors
-          topActor += actor
-        else:
-          topActor += "\\" + actor
+        # if topActor=="": # In case there are multiple top actors
+        #   topActor += actor
+        # else:
+        #   topActor += "\\" + actor
+        topActor = actor
+        break
     # Getting most frequent movie genre
     maxMoviesGenre = max(genreCounts.values())
     topGenre = ""
     for genre in genreCounts.keys():
       if genreCounts[genre] == maxMoviesGenre:
-        if topGenre=="": # In case there are multiple top genres
-          topGenre += genre
-        else:
-          topGenre += "\\" + genre
+        # if topGenre=="": # In case there are multiple top genres
+        #   topGenre += genre
+        # else:
+        #   topGenre += "\\" + genre
+        topGenre = genre
+        break
     return ratingPercents, avgMovieDuration, topDirector, topActor, topGenre
   
   def getTVStats(self):
@@ -271,19 +280,21 @@ class Recommender:
         actors_str = actors_str.strip()
         actors_list = list(actors_str.split("\\"))
         for actor in actors_list:
-          if actor in actorCounts.keys():
-            actorCounts[actor] += 1
-          else:
-            actorCounts[actor] = 1
+          if actor!="":
+            if actor in actorCounts.keys():
+              actorCounts[actor] += 1
+            else:
+              actorCounts[actor] = 1
         # Getting Most Frequent Movie Genre
         genres_str = showInfo.getGenres()
         genres_str = genres_str.strip()
         genres_list = list(genres_str.split("\\"))
         for genre in genres_list:
-          if genre in genreCounts.keys():
-            genreCounts[genre] += 1
-          else:
-            genreCounts[genre] = 1
+          if genre!="":
+            if genre in genreCounts.keys():
+              genreCounts[genre] += 1
+            else:
+              genreCounts[genre] = 1
     # Getting Rating Percentages
     totalRating = 0
     for count in ratingPercents.values():
@@ -297,19 +308,23 @@ class Recommender:
     topActor = ""
     for actor in actorCounts.keys():
       if actorCounts[actor] == maxShowsActedIn:
-        if topActor=="": # In case there are multiple top actors
-          topActor += actor
-        else:
-          topActor += "\\" + actor
+        # if topActor=="": # In case there are multiple top actors
+        #   topActor += actor
+        # else:
+        #   topActor += "\\" + actor
+        topActor = actor
+        break
     # Getting most frequent TV Show genre
     maxShowsGenre = max(genreCounts.values())
     topGenre = ""
     for genre in genreCounts.keys():
       if genreCounts[genre] == maxShowsGenre:
-        if topGenre=="": # In case there are multiple top genres
-          topGenre += genre
-        else:
-          topGenre += "\\" + genre
+        # if topGenre=="": # In case there are multiple top genres
+        #   topGenre += genre
+        # else:
+        #   topGenre += "\\" + genre
+        topGenre = genre
+        break
     return ratingPercents, avgSeasonsNum, topActor, topGenre
   
   def getBookStats(self):
@@ -333,19 +348,21 @@ class Recommender:
       authors_str = authors_str.strip()
       authors_list = list(authors_str.split("\\"))
       for author in authors_list:
-        if author in authorCounts.keys():
-          authorCounts[author] += 1
-        else:
-          authorCounts[author] = 1
+        if author!="":
+          if author in authorCounts.keys():
+            authorCounts[author] += 1
+          else:
+            authorCounts[author] = 1
       # Getting the Publisher who published the most books
       publishers_str = bookInfo.getPublisher()
       publishers_str = publishers_str.strip()
       publishers_list = list(publishers_str.split("\\"))
       for publisher in publishers_list:
-        if publisher in publisherCounts.keys():
-          publisherCounts[publisher] += 1
-        else:
-          publisherCounts[publisher] = 1
+        if publisher!="":
+          if publisher in publisherCounts.keys():
+            publisherCounts[publisher] += 1
+          else:
+            publisherCounts[publisher] = 1
     # Getting Average number of pages
     avgPageCounts = float(f"{avgPageCounts / bookCount :.2f}")
     # Getting the Author(s) who wrote the most books
@@ -353,19 +370,23 @@ class Recommender:
     topAuthor = ""
     for author in authorCounts.keys():
       if authorCounts[author] == maxBooksWrote:
-        if topAuthor=="": # In case there are multiple top authors
-          topAuthor += author
-        else:
-          topAuthor += "\\" + author
+        # if topAuthor=="": # In case there are multiple top authors
+        #   topAuthor += author
+        # else:
+        #   topAuthor += "\\" + author
+        topAuthor = author
+        break
     # Getting most frequent TV Show genre
     maxBooksPublished = max(publisherCounts.values())
     topPublisher = ""
     for publisher in publisherCounts.keys():
       if publisherCounts[publisher] == maxBooksPublished:
-        if topPublisher=="": # In case there are multiple top genres
-          topPublisher += publisher
-        else:
-          topPublisher += "\\" + publisher
+        # if topPublisher=="": # In case there are multiple top genres
+        #   topPublisher += publisher
+        # else:
+        #   topPublisher += "\\" + publisher
+        topPublisher = publisher
+        break
     return avgPageCounts, topAuthor, topPublisher
   
   def searchTVMovies(self, media, title, director, actor, genre):
@@ -576,3 +597,5 @@ class Recommender:
         output += "****************************************************\n"
       return output
     return "No results"
+    
+      

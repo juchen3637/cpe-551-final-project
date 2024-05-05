@@ -576,5 +576,3 @@ class Recommender:
         output += "****************************************************\n"
       return output
     return "No results"
-    
-      

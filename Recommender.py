@@ -354,7 +354,7 @@ class Recommender:
           else:
             authorCounts[author] = 1
       # Getting the Publisher who published the most books
-      publishers_str = bookInfo.getPublisher()
+      publishers_str = bookInfo.getPublishers()
       publishers_str = publishers_str.strip()
       publishers_list = list(publishers_str.split("\\"))
       for publisher in publishers_list:
@@ -426,7 +426,7 @@ class Recommender:
         showIsMatch = True
         if flags[0]==1 and title!=showInfo.getTitle(): # If there is a title inputted and it doesn't match, do not add show.
           showIsMatch = False
-        if flags[1]==1 and director!=showInfo.getDirector(): # If there is a director inputted and it doesn't match, do not add show.
+        if flags[1]==1 and director!=showInfo.getDirectors(): # If there is a director inputted and it doesn't match, do not add show.
           showIsMatch = False
         if flags[2]==1: # If there is an actor inputted and it doesn't match, don't add show.
           actors_str = showInfo.getActors()
@@ -523,11 +523,11 @@ class Recommender:
         columnLengths[0] = len(book.getTitle())
       if len(book.getAuthors())>columnLengths[1]:
         columnLengths[1] = len(book.getAuthors())
-      if len(book.getPublisher())>columnLengths[2]:
-        columnLengths[2] = len(book.getPublisher())
+      if len(book.getPublishers())>columnLengths[2]:
+        columnLengths[2] = len(book.getPublishers())
       bookList.append(book.getTitle())
       bookList.append(book.getAuthors())
-      bookList.append(book.getPublisher())
+      bookList.append(book.getPublishers())
     output = str()
     count = 0
     for i in bookList:
@@ -572,7 +572,7 @@ class Recommender:
         output += f"Pages:\n{self.__Books[bookKey].getNumPages()}\n"
         output += f"Rating Count:\n{self.__Books[bookKey].getNumRatings()}\n"
         output += f"Publication Date:\n{self.__Books[bookKey].getPubDate()}\n"
-        output += f"Publisher:\n{self.__Books[bookKey].getPublisher()}\n"
+        output += f"Publisher:\n{self.__Books[bookKey].getPublishers()}\n"
         output += "****************************************************\n"
       return output
     elif media=="Book":

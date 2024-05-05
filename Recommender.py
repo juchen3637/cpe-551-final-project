@@ -97,10 +97,9 @@ class Recommender:
           longestName = len(showInfo.getTitle())
     output = str()
     count = 0
-    longestName += 5
     for i in storage:
       if count%2==0:
-        output += f"{"\n" + i :>{longestName}}" # Adds strings from storage using proper indenting
+        output += f"\n{i}" + " "*(longestName+5-len(i)) # Adds strings from storage using proper indenting
       else:
         output += f"{i}" # Adds strings from storage using proper spacing
       count += 1
@@ -122,10 +121,9 @@ class Recommender:
           longestName = len(showInfo.getTitle())
     output = str()
     count = 0
-    longestName += 5
     for i in storage:
       if count%2==0:
-        output += f"{"\n" + i :>{longestName}}" # Adds strings from storage using proper indenting
+        output += f"\n{i}" + " "*(longestName+5-len(i)) # Adds strings from storage using proper indenting
       else:
         output += f"{i}" # Adds strings from storage using proper spacing
       count += 1
@@ -146,10 +144,9 @@ class Recommender:
         longestName = len(bookInfo.getTitle())
     output = str()
     count = 0
-    longestName += 5
     for i in storage:
       if count%2==0:
-        output += f"{"\n" + i :>{longestName}}" # Adds strings from storage using proper indenting
+        output += f"\n{i}" + " "*(longestName+5-len(i)) # Adds strings from storage using proper indenting
       else:
         output += f"{i}" # Adds strings from storage using proper spacing
       count += 1
@@ -439,7 +436,7 @@ class Recommender:
         columnLengths[1] = len(show.getDirectors())
       if len(show.getActors())>columnLengths[2]:
         columnLengths[2] = len(show.getActors())
-      if len(show.getGenre())>columnLengths[3]:
+      if len(show.getGenres())>columnLengths[3]:
         columnLengths[3] = len(show.getGenres())
       mediaList.append(show.getTitle())
       mediaList.append(show.getDirectors())
@@ -447,15 +444,11 @@ class Recommender:
       mediaList.append(show.getGenres())
     output = str()
     count = 0
-    columnLengths[0] += 5
-    columnLengths[1] += 5
-    columnLengths[2] += 5
-    columnLengths[3] += 5
     for i in mediaList:
       if count%4==0:
-        output += f"{"\n" + i :>{columnLengths[0]}}" # Adds strings from the mediaList using proper indenting
+        output += f"\n{i}" + " "*(columnLengths[0]+5-len(i)) # Adds strings from the mediaList using proper indenting
       else:
-        output += f"{i :>{columnLengths[count%4]}}" # Adds strings from storage using proper spacing
+        output += f"{i}" + " "*(columnLengths[count%4]+5-len(i)) # Adds strings from storage using proper spacing
       count += 1
     return output
     
@@ -514,14 +507,11 @@ class Recommender:
       bookList.append(book.getPublisher())
     output = str()
     count = 0
-    columnLengths[0] += 5
-    columnLengths[1] += 5
-    columnLengths[2] += 5
     for i in bookList:
       if count%3==0:
-        output += f"{"\n" + i :>{columnLengths[0]}}" # Adds strings from the bookList using proper indenting
+        output += f"\n{i}" + " "*(columnLengths[0]+5-len(i)) # Adds strings from the bookList using proper indenting
       else:
-        output += f"{i :>{columnLengths[count%3]}}" # Adds strings from storage using proper spacing
+        output += f"{i}" + " "*(columnLengths[count%3]+5-len(i)) # Adds strings from storage using proper spacing
       count += 1
     return output
     

@@ -192,10 +192,11 @@ class Recommender:
         actors_str = actors_str.strip()
         actors_list = list(actors_str.split("\\"))
         for actor in actors_list:
-          if actor in actorCounts.keys():
-            actorCounts[actor] += 1
-          else:
-            actorCounts[actor] = 1
+          if actor!="":
+            if actor in actorCounts.keys():
+              actorCounts[actor] += 1
+            else:
+              actorCounts[actor] = 1
         # Getting Most Frequent Movie Genre
         genres_str = movieInfo.getGenres()
         genres_str = genres_str.strip()
@@ -271,10 +272,11 @@ class Recommender:
         actors_str = actors_str.strip()
         actors_list = list(actors_str.split("\\"))
         for actor in actors_list:
-          if actor in actorCounts.keys():
-            actorCounts[actor] += 1
-          else:
-            actorCounts[actor] = 1
+          if actor!="":
+            if actor in actorCounts.keys():
+              actorCounts[actor] += 1
+            else:
+              actorCounts[actor] = 1
         # Getting Most Frequent Movie Genre
         genres_str = showInfo.getGenres()
         genres_str = genres_str.strip()
@@ -576,3 +578,5 @@ class Recommender:
         output += "****************************************************\n"
       return output
     return "No results"
+    
+      

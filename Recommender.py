@@ -1,5 +1,5 @@
 # Author: Joseph Stefanoni
-# Date: 4/30/2024 - 5/4/24
+# Date: 4/30/2024 - 5/5/24
 # Description: Recommender Class which can load books, movies, and associations (all .csv files),
 #              can get a list of the TV shows, movies, or books, can get book, TV, or Movie stats,
 #              can search Books or TV and Movies by title, and can get recommendations of books given
@@ -357,7 +357,7 @@ class Recommender:
           else:
             authorCounts[author] = 1
       # Getting the Publisher who published the most books
-      publishers_str = bookInfo.getPublishers()
+      publishers_str = bookInfo.getPublisher()
       publishers_str = publishers_str.strip()
       publishers_list = list(publishers_str.split("\\"))
       for publisher in publishers_list:
@@ -517,7 +517,7 @@ class Recommender:
             authorFlag = True
         if not authorFlag:
           bookIsMatch = False
-      if flags[2]==1 and publisher!=bookInfo.getPublishers(): # If there is a publisher inputted and it doesn't match, do not add book.
+      if flags[2]==1 and publisher!=bookInfo.getPublisher(): # If there is a publisher inputted and it doesn't match, do not add book.
         bookIsMatch = False
       if bookIsMatch: # If everything matched, book is added.
         BookObjectsList.append(bookInfo) 
@@ -526,11 +526,11 @@ class Recommender:
         columnLengths[0] = len(book.getTitle())
       if len(book.getAuthors())>columnLengths[1]:
         columnLengths[1] = len(book.getAuthors())
-      if len(book.getPublishers())>columnLengths[2]:
-        columnLengths[2] = len(book.getPublishers())
+      if len(book.getPublisher())>columnLengths[2]:
+        columnLengths[2] = len(book.getPublisher())
       bookList.append(book.getTitle())
       bookList.append(book.getAuthors())
-      bookList.append(book.getPublishers())
+      bookList.append(book.getPublisher())
     output = str()
     count = 0
     for i in bookList:
@@ -575,7 +575,7 @@ class Recommender:
         output += f"Pages:\n{self.__Books[bookKey].getNumPages()}\n"
         output += f"Rating Count:\n{self.__Books[bookKey].getNumRatings()}\n"
         output += f"Publication Date:\n{self.__Books[bookKey].getPubDate()}\n"
-        output += f"Publisher:\n{self.__Books[bookKey].getPublishers()}\n"
+        output += f"Publisher:\n{self.__Books[bookKey].getPublisher()}\n"
         output += "****************************************************\n"
       return output
     elif media=="Book":

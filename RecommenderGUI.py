@@ -206,7 +206,9 @@ class RecommenderGUI:
         """
         Loads all of the data from a selected show file using an askopenfilename dialog.
         """
-        fig, axs = plt.subplots(1, 2, figsize=(10, 5))
+        fig, axs = plt.subplots(1, 2, figsize=(12, 6))
+        for widget in self.__tabBonus.winfo_children():
+          widget.destroy()
 
         # Load all necessary data from the recommender for shows and movies
         self.__recommender.loadShows()
@@ -358,9 +360,15 @@ class RecommenderGUI:
         """
         Displays a pie chart with information about different media. *Extra credit*
         """
-        ax.pie(sizes, labels=labels, autopct='%1.1f%%', shadow=True, startangle=90)
+        fig = plt.gcf()
+        fig.set_size_inches(12, 6)
+
+        explode = [0.3 if size < max(sizes) / 5 else 0 for size in sizes]
+        ax.pie(sizes, labels=labels, autopct='%1.2f%%', startangle=90, explode=explode, pctdistance=0.9)
         ax.set_title(title)
         ax.axis('equal')
+
+        plt.tight_layout()
 
     def main_loop(self):
         self.__main_window.mainloop()

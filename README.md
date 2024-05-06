@@ -2,4 +2,5 @@
 
 Authors: Justin Chen, Joseph Stefanoni, Daniel Baton
 
-This is the start of our CPE 551 final project
+# To run this program
+Run the RecommenderGUI.py file

@@ -1,5 +1,5 @@
 # Author: Joseph Stefanoni
-# Date: 4/30/2024 - 5/4/24
+# Date: 4/30/2024 - 5/5/24
 # Description: Recommender Class which can load books, movies, and associations (all .csv files),
 #              can get a list of the TV shows, movies, or books, can get book, TV, or Movie stats,
 #              can search Books or TV and Movies by title, and can get recommendations of books given
@@ -22,6 +22,7 @@ class Recommender:
   def loadBooks(self):
     """Loads all of the data from a selected book file using an askopenfilename dialog.
     """
+    self.__Books = dict() # Wipes previous data if function is called again.
     file = ""
     while not os.path.exists(file):
       file = fd.askopenfilename(title="Select book file to load",initialdir=os.getcwd()) # Rename "Book" to title of GUI.
@@ -36,6 +37,7 @@ class Recommender:
   def loadShows(self):
     """Loads all of the data from a selected show file using an askopenfilename dialog.
     """
+    self.__Shows = dict() # Wipes previous data if function is called again.
     file = ""
     while not os.path.exists(file):
       file = fd.askopenfilename(title="Select show file to load",initialdir=os.getcwd()) # Rename "Show" to title of GUI.
@@ -50,6 +52,7 @@ class Recommender:
   def loadAssociations(self):
     """Loads all of the data from a selected association file using an askopenfilename dialog.
     """
+    self.__Associations = dict() # Wipes previous data if function is called again.
     file = ""
     while not os.path.exists(file):
       file = fd.askopenfilename(title="Select associations file to load",initialdir=os.getcwd()) # Rename "Show" to title of GUI.
@@ -97,11 +100,11 @@ class Recommender:
           longestName = len(showInfo.getTitle())
     output = str()
     count = 0
-    for i in storage:
+    for info in storage:
       if count%2==0:
-        output += f"\n{i}" + " "*(longestName+4-len(i)) # Adds strings from storage using proper indenting
+        output += f"\n{info}" + " "*(longestName+4-len(info)) # Adds strings from storage using proper indenting
       else:
-        output += f"{i}" # Adds strings from storage using proper spacing
+        output += f"{info}" # Adds strings from storage using proper spacing
       count += 1
     return output
   
@@ -121,11 +124,11 @@ class Recommender:
           longestName = len(showInfo.getTitle())
     output = str()
     count = 0
-    for i in storage:
+    for info in storage:
       if count%2==0:
-        output += f"\n{i}" + " "*(longestName+4-len(i)) # Adds strings from storage using proper indenting
+        output += f"\n{info}" + " "*(longestName+4-len(info)) # Adds strings from storage using proper indenting
       else:
-        output += f"{i}" # Adds strings from storage using proper spacing
+        output += f"{info}" # Adds strings from storage using proper spacing
       count += 1
     return output
   
@@ -144,11 +147,11 @@ class Recommender:
         longestName = len(bookInfo.getTitle())
     output = str()
     count = 0
-    for i in storage:
+    for info in storage:
       if count%2==0:
-        output += f"\n{i}" + " "*(longestName+4-len(i)) # Adds strings from storage using proper indenting
+        output += f"\n{info}" + " "*(longestName+4-len(info)) # Adds strings from storage using proper indenting
       else:
-        output += f"{i}" # Adds strings from storage using proper spacing
+        output += f"{info}" # Adds strings from storage using proper spacing
       count += 1
     return output
   
@@ -426,7 +429,7 @@ class Recommender:
         showIsMatch = True
         if flags[0]==1 and title!=showInfo.getTitle(): # If there is a title inputted and it doesn't match, do not add show.
           showIsMatch = False
-        if flags[1]==1 and director!=showInfo.getDirector(): # If there is a director inputted and it doesn't match, do not add show.
+        if flags[1]==1 and director!=showInfo.getDirectors(): # If there is a director inputted and it doesn't match, do not add show.
           showIsMatch = False
         if flags[2]==1: # If there is an actor inputted and it doesn't match, don't add show.
           actors_str = showInfo.getActors()
@@ -465,13 +468,13 @@ class Recommender:
       mediaList.append(show.getGenres())
     output = str()
     count = 0
-    for i in mediaList:
+    for mediaInfo in mediaList:
       if count%4==0:
-        output += f"\n{i}" + " "*(columnLengths[0]+4-len(i)) # Adds strings from the mediaList using proper indenting
+        output += f"\n{mediaInfo}" + " "*(columnLengths[0]+4-len(mediaInfo)) # Adds strings from the mediaList using proper indenting
       elif count%4==3:
-        output += f"{i}" # Adds strings 
+        output += f"{mediaInfo}" # Adds strings 
       else:
-        output += f"{i}" + " "*(columnLengths[count%4]+4-len(i)) # Adds strings from mediaList using proper spacing
+        output += f"{mediaInfo}" + " "*(columnLengths[count%4]+4-len(mediaInfo)) # Adds strings from mediaList using proper spacing
       count += 1
     return output
     
@@ -514,7 +517,7 @@ class Recommender:
             authorFlag = True
         if not authorFlag:
           bookIsMatch = False
-      if flags[2]==1 and publisher!=bookInfo.getPublishers(): # If there is a publisher inputted and it doesn't match, do not add book.
+      if flags[2]==1 and publisher!=bookInfo.getPublisher(): # If there is a publisher inputted and it doesn't match, do not add book.
         bookIsMatch = False
       if bookIsMatch: # If everything matched, book is added.
         BookObjectsList.append(bookInfo) 
@@ -530,13 +533,13 @@ class Recommender:
       bookList.append(book.getPublisher())
     output = str()
     count = 0
-    for i in bookList:
+    for info in bookList:
       if count%3==0:
-        output += f"\n{i}" + " "*(columnLengths[0]+4-len(i)) # Adds strings from the bookList using proper indenting
+        output += f"\n{info}" + " "*(columnLengths[0]+4-len(info)) # Adds strings from the bookList using proper indenting
       elif count%3==2:
-        output += f"{i}" # Adds strings 
+        output += f"{info}" # Adds strings 
       else:
-        output += f"{i}" + " "*(columnLengths[count%3]+4-len(i)) # Adds strings from bookList using proper spacing
+        output += f"{info}" + " "*(columnLengths[count%3]+4-len(info)) # Adds strings from bookList using proper spacing
       count += 1
     return output
     

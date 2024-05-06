@@ -11,7 +11,8 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 class RecommenderGUI:
     def __init__(self):
-        self.__recommender = Recommender()  # Create the recommender instance
+        # Create the recommender instance
+        self.__recommender = Recommender()
 
         # Create the main window for the application
         self.__main_window = tk.Tk()

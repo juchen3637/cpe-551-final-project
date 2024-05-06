@@ -22,6 +22,7 @@ class Recommender:
   def loadBooks(self):
     """Loads all of the data from a selected book file using an askopenfilename dialog.
     """
+    self.__Books = dict() # Wipes previous data if function is called again.
     file = ""
     while not os.path.exists(file):
       file = fd.askopenfilename(title="Select book file to load",initialdir=os.getcwd()) # Rename "Book" to title of GUI.
@@ -36,6 +37,7 @@ class Recommender:
   def loadShows(self):
     """Loads all of the data from a selected show file using an askopenfilename dialog.
     """
+    self.__Shows = dict() # Wipes previous data if function is called again.
     file = ""
     while not os.path.exists(file):
       file = fd.askopenfilename(title="Select show file to load",initialdir=os.getcwd()) # Rename "Show" to title of GUI.
@@ -50,6 +52,7 @@ class Recommender:
   def loadAssociations(self):
     """Loads all of the data from a selected association file using an askopenfilename dialog.
     """
+    self.__Associations = dict() # Wipes previous data if function is called again.
     file = ""
     while not os.path.exists(file):
       file = fd.askopenfilename(title="Select associations file to load",initialdir=os.getcwd()) # Rename "Show" to title of GUI.

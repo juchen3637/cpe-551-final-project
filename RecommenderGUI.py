@@ -18,13 +18,9 @@ class RecommenderGUI:
         self.__main_window.title("Recommender")
         self.__main_window.geometry("1200x800")
 
-        # Create a notebook to allow pagination
-        self.__notebook = ttk.Notebook(self.__main_window)
-        self.__notebook.pack(expand=True, fill=tk.BOTH)
-
         # --- Buttons Frame ---
         self.__buttonFrame = tk.Frame(self.__main_window)
-        self.__buttonFrame.pack(side=tk.TOP)
+        self.__buttonFrame.pack(side=tk.BOTTOM)
 
         # Button to load shows
         self.__loadShowsButton = tk.Button(self.__buttonFrame, text="Load Shows", command=self.load_shows)
@@ -47,6 +43,10 @@ class RecommenderGUI:
         self.__quitButton = tk.Button(self.__buttonFrame, text="Quit", command=self.__main_window.destroy)
         self.__quitButton.pack(side=tk.LEFT, padx=50)
 
+        # --- Notebook ---
+        self.__notebook = ttk.Notebook(self.__main_window)
+        self.__notebook.pack(side=tk.TOP)
+
         # --- Movies Tab ---
         self.__tabMovies = ttk.Frame(self.__notebook)
         self.__notebook.add(self.__tabMovies, text="Movies")
@@ -55,13 +55,13 @@ class RecommenderGUI:
         self.__moviesText = tk.Text(self.__tabMovies, height=23, wrap=tk.WORD)
         self.__moviesText.insert(tk.END, 'No movies found (yet)')
         self.__moviesText.configure(state='disabled')
-        self.__moviesText.pack(fill=tk.X)
+        self.__moviesText.pack(fill=tk.BOTH)
 
         # Text widget to display movie stats
-        self.__movieStatsText = tk.Text(self.__tabMovies, height=23, wrap=tk.WORD)
+        self.__movieStatsText = tk.Text(self.__tabMovies, wrap=tk.WORD, height=23)
         self.__movieStatsText.insert(tk.END, 'No movies found (yet)')
         self.__movieStatsText.configure(state='disabled')
-        self.__movieStatsText.pack(fill=tk.X)
+        self.__movieStatsText.pack(fill=tk.BOTH)
 
         # --- TV Shows Tab ---
         self.__tabTVShows = ttk.Frame(self.__notebook)
@@ -71,13 +71,13 @@ class RecommenderGUI:
         self.__showsText = tk.Text(self.__tabTVShows, height=23, wrap=tk.WORD)
         self.__showsText.insert(tk.END, 'No shows found (yet)')
         self.__showsText.configure(state='disabled')
-        self.__showsText.pack(fill=tk.X)
+        self.__showsText.pack(fill=tk.BOTH)
 
         # Text widget to display TV show stats
         self.__showStatsText = tk.Text(self.__tabTVShows, height=23, wrap=tk.WORD)
         self.__showStatsText.insert(tk.END, 'No shows found (yet)')
         self.__showStatsText.configure(state='disabled')
-        self.__showStatsText.pack(fill=tk.X)
+        self.__showStatsText.pack(fill=tk.BOTH)
 
         # --- Books Tab ---
         self.__tabBooks = ttk.Frame(self.__notebook)
